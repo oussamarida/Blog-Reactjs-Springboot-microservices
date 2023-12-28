@@ -4,6 +4,7 @@ import { Signin } from "./auth/signin";
 import { Signup } from "./auth/signup";
 import { Home } from "./pages/Home";
 import { LayoutHome } from "./pages/Layout";
+import { Myblogs } from "./pages/myblogs";
 
 const router = createBrowserRouter([
     {
@@ -14,6 +15,11 @@ const router = createBrowserRouter([
                 path: "",
                 element: <Home />,
             },
+            {
+                path: "/myblogs",
+                element: <Myblogs />,
+            },
+            
 
         ]
     },
@@ -29,6 +35,8 @@ const router = createBrowserRouter([
                 path: "signup",
                 element: <Signup />,
             },
+
+            
 
         ]
     },

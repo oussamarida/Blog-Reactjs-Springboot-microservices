@@ -9,7 +9,7 @@ export const LayoutAuth = () => {
       <div className="lg:w-1/2 xl:max-w-screen-sm ">
         <div className=" bg-gray-400 lg:bg-white flex justify-center lg:justify-start lg:px-12">
           <div className="cursor-pointer flex items-center">
-            <div className="cursor-pointer w-full flex justify-center items-center">
+            <div className="lg:hidden  cursor-pointer w-full flex justify-center items-center">
               <img
                 src={image}
                 alt="logo"

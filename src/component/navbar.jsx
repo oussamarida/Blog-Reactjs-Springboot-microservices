@@ -21,25 +21,35 @@ import {
   Bars2Icon,
 } from "@heroicons/react/24/solid";
 import { useStateContext } from "../../context/context";
-import logo from "./logo.png"
+import logo from "./logo.png";
+import { Navigate } from "react-router-dom";
 
-// profile menu component
-const profileMenuItems = [
-  {
-    label: "My Profile",
-    icon: UserCircleIcon,
-  },
-  {
-    label: "Sign Out",
-    icon: PowerIcon,
-  },
-];
-
-function ProfileMenu({image}) {
-
+function ProfileMenu({ image }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);
+
+  const log = () => {
+    console.log("dsc");
+  };
+
+  const profileMenuItems = [
+    {
+      label: "My Profile",
+      icon: UserCircleIcon,
+      onclick: log,
+    },
+    {
+      label: "Sign Out",
+      icon: PowerIcon,
+      onclick: log,
+    },
+  ];
+
+  const test = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
 
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -65,33 +75,41 @@ function ProfileMenu({image}) {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon }, key) => {
-          const isLastItem = key === profileMenuItems.length - 1;
-          return (
-            <MenuItem
-              key={label}
-              onClick={closeMenu}
-              className={`flex items-center gap-2 rounded ${
-                isLastItem
-                  ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                  : ""
-              }`}
-            >
-              {React.createElement(icon, {
-                className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
-                strokeWidth: 2,
-              })}
-              <Typography
-                as="span"
-                variant="small"
-                className="font-normal"
-                color={isLastItem ? "red" : "inherit"}
-              >
-                {label}
-              </Typography>
-            </MenuItem>
-          );
-        })}
+        <MenuItem
+          onClick={closeMenu}
+          className={`flex items-center gap-2 rounded`}
+        >
+          {React.createElement(UserCircleIcon, {
+            className: `h-4 w-4`,
+            strokeWidth: 2,
+          })}
+          <Typography
+            as="span"
+            variant="small"
+            className="font-normal"
+            color={"inherit"}
+          >
+            My Profile
+          </Typography>
+        </MenuItem>
+        <MenuItem
+          onClick={() => test()}
+          className={`flex items-center gap-2 rounded hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10`}
+        >
+          {React.createElement(PowerIcon, {
+            className: `h-4 w-4  "text-red-500" `,
+            strokeWidth: 2,
+          })}
+          <Typography
+           
+            as="span"
+            variant="small"
+            className="font-normal"
+            color={"red"}
+          >
+            Sign Out
+          </Typography>
+        </MenuItem>
       </MenuList>
     </Menu>
   );
@@ -157,10 +175,13 @@ function NavListMenu() {
 const navListItems = [
   {
     label: "Blogs",
-    icon:CubeTransparentIcon ,
+    href: "/myblogs",
+
+    icon: CubeTransparentIcon,
   },
   {
     label: "My Blogs",
+    href: "/myblogs",
     icon: UserCircleIcon,
   },
 ];
@@ -169,11 +190,11 @@ function NavList() {
   return (
     <ul className="mt-2 mb-4 flex flex-col  gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
       <NavListMenu />
-      {navListItems.map(({ label, icon }, key) => (
+      {navListItems.map(({ label, icon, href }, key) => (
         <Typography
           key={label}
           as="a"
-          href="#"
+          href={href}
           variant="small"
           color="gray"
           className="font-medium text-blue-gray-500"
@@ -209,8 +230,7 @@ export function ComplexNavbar() {
           href="#"
           className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
         >
-                <Avatar src={logo} alt="avatar" size="xl" />
-
+          <Avatar src={logo} alt="avatar" size="xl" />
         </Typography>
         <div className="hidden lg:block">
           <NavList />
